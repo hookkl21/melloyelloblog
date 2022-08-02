@@ -1,40 +1,91 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../images/blog-logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BiMenuAltRight } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
 
 import classes from "./Navbar.module.scss";
 
 function Navbar() {
+  const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const [size, setSize] = useState({
+    width: undefined,
+    height: undefined,
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (size.width > 768 && menuOpen) {
+      setMenuOpen(false);
+    }
+  }, [size.width, menuOpen]);
+
+  const menuToggle = () => {
+    setMenuOpen((prev) => !prev);
+  };
+  const loginHandler = () => {
+    menuToggle();
+    navigate("/login");
+  };
   return (
-    <header className={classes.header}>
-      <div className={classes.header__content}>
-        <Link className={classes.header__content__logo} to="/">
+    <header className={classes.navbar}>
+      <div className={classes.navbar__content}>
+        <Link className={classes.navbar__content__logo} to="/">
           <img src={logo} alt="MelloYello Blog" />
         </Link>
-        <nav className={classes.header__content__nav}>
+        <nav
+          className={`${classes.navbar__content__nav} ${
+            menuOpen && size.width < 768 ? classes.isMenu : ""
+          }`}
+        >
           <ul>
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/" onClick={menuToggle}>
+                Home
+              </Link>
             </li>
             <li>
-              <Link to="about">About</Link>
+              <Link to="about" onClick={menuToggle}>
+                About
+              </Link>
             </li>
             <li>
-              <Link to="posts">Posts</Link>
+              <Link to="posts" onClick={menuToggle}>
+                Posts
+              </Link>
             </li>
             <li>
-              <Link to="write">Write</Link>
+              <Link to="write" onClick={menuToggle}>
+                Write
+              </Link>
             </li>
             <li>
-              <Link to="contact">Contact</Link>
+              <Link to="contact" onClick={menuToggle}>
+                Contact
+              </Link>
             </li>
           </ul>
-          <button>Login</button>
+          <button onClick={loginHandler}>Login</button>
         </nav>
-        <div className={classes.header__content__toggle}>
-          <BiMenuAltRight className={classes.header__content__icon} />
+        <div className={classes.navbar__content__toggle}>
+          {!menuOpen ? (
+            <BiMenuAltRight onClick={menuToggle} />
+          ) : (
+            <AiOutlineClose onClick={menuToggle} />
+          )}
         </div>
       </div>
     </header>
