@@ -36,21 +36,6 @@ function Sidebar() {
                 </Link>
               );
             })}
-            {/* <li className={classes.sidebar_items_lists_item}>JavaScript</li>
-            <li className={classes.sidebar_items_lists_item}>React</li>
-            <li className={classes.sidebar_items_lists_item}>Others</li> */}
-          </ul>
-        </section>
-        <section className={classes.sidebar_items_}>
-          <h4 className={classes.sidebar_items_subtitle}>Lawn</h4>
-          <ul className={classes.sidebar_items_lists}>
-            {categories.map((c) => {
-              return (
-                <li className={classes.sidebar_items_lists_item} key={c._id}>
-                  {c.categoryName}
-                </li>
-              );
-            })}
           </ul>
         </section>
       </div>

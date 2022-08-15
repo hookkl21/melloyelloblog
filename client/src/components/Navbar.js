@@ -11,7 +11,6 @@ function Navbar() {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const { user, dispatch } = useContext(Context);
-  console.log(user);
   const [size, setSize] = useState({
     width: undefined,
     height: undefined,
@@ -75,15 +74,17 @@ function Navbar() {
               </Link>
             </li>
             <li>
-              <Link to="write" onClick={menuToggle}>
-                Write
-              </Link>
+              {user && (
+                <Link to="write" onClick={menuToggle}>
+                  Write
+                </Link>
+              )}
             </li>
-            <li>
+            {/* <li>
               <Link to="contact" onClick={menuToggle}>
                 Contact
               </Link>
-            </li>
+            </li> */}
           </ul>
           {user === null ? (
             <button onClick={loginHandler}>Login</button>

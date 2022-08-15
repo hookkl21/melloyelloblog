@@ -23,6 +23,7 @@ function Login() {
         password: passwordRef.current.value,
       });
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+      navigate("/");
     } catch (error) {
       dispatch({ type: "LOGIN_FAIL" });
     }

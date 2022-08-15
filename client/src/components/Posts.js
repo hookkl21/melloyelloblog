@@ -1,6 +1,5 @@
 import React from "react";
 import classes from "./Posts.module.scss";
-import postImage from "../images/coding.jpg";
 import Post from "./Post";
 
 function Posts({ posts }) {
