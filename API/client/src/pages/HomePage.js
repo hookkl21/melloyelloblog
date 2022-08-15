@@ -3,6 +3,7 @@ import { Header, Sidebar, Posts } from "../components";
 import classes from "./Home.module.scss";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import { axiosInstance } from "../config";
 
 export default function HomePage() {
   const [posts, setPosts] = useState([]);
@@ -13,7 +14,7 @@ export default function HomePage() {
   }, [search]);
 
   const fetchPosts = async () => {
-    const res = await axios.get("/posts" + search);
+    const res = await axiosInstance.get("/posts" + search);
     const data = res.data;
     setPosts(data);
   };

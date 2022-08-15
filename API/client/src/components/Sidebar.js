@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { axiosInstance } from "../config";
 import classes from "./Sidebar.module.scss";
 
 function Sidebar() {
@@ -11,7 +12,7 @@ function Sidebar() {
   }, []);
 
   const fetchCategories = async () => {
-    const res = await axios.get("/categories");
+    const res = await axiosInstance.get("/categories");
     const data = res.data;
     setCategories(data);
   };

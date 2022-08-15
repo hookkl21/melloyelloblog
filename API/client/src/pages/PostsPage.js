@@ -3,6 +3,7 @@ import classes from "./PostsPage.module.scss";
 import { Sidebar, Posts } from "../components";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import { axiosInstance } from "../config";
 
 export default function PostsPage() {
   const [posts, setPosts] = useState([]);
@@ -13,7 +14,7 @@ export default function PostsPage() {
   }, [search]);
 
   const fetchPosts = async () => {
-    const res = await axios.get("/posts" + search);
+    const res = await axiosInstance.get("/posts" + search);
     const data = res.data;
     setPosts(data);
   };

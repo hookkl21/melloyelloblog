@@ -5,6 +5,7 @@ import image from "../images/coding.jpg";
 import axios from "axios";
 import { Context } from "../context/Context";
 import { Navigate, useNavigate } from "react-router-dom";
+import { axiosInstance } from "../config";
 
 export default function WritePage() {
   const [title, setTitle] = useState("");
@@ -32,14 +33,14 @@ export default function WritePage() {
       data.append("file", file);
       newPost.photo = filename;
       try {
-        await axios.post("/upload", data);
+        await axiosInstance.post("/upload", data);
       } catch (error) {
         console.log(error);
         navigate("*");
       }
     }
     try {
-      const res = await axios.post("/posts", newPost);
+      const res = await axiosInstance.post("/posts", newPost);
       window.location.replace("/posts/" + res.data._id);
     } catch (error) {
       console.log(error);

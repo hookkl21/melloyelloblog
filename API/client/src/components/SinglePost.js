@@ -6,6 +6,7 @@ import { FiDelete } from "react-icons/fi";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import { Context } from "../context/Context";
+import { axiosInstance } from "../config";
 
 function SinglePost() {
   //declare state
@@ -24,7 +25,7 @@ function SinglePost() {
     fetchSinglePost();
   }, [path]);
   const fetchSinglePost = async () => {
-    const res = await axios.get(`/posts/${path}`);
+    const res = await axiosInstance.get(`/posts/${path}`);
     const data = res.data;
     setSinglePost(data);
     setTitle(data.title);
@@ -33,7 +34,7 @@ function SinglePost() {
 
   const handleDelete = async () => {
     try {
-      await axios.delete("/posts/" + path, {
+      await axiosInstance.delete("/posts/" + path, {
         data: { username: user.username },
       });
       window.location.replace("/");
@@ -42,7 +43,7 @@ function SinglePost() {
 
   const handleUpdate = async () => {
     try {
-      await axios.put("/posts/" + path, {
+      await axiosInstance.put("/posts/" + path, {
         username: user.username,
         title,
         description,
