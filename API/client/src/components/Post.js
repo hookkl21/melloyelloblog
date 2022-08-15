@@ -4,7 +4,7 @@ import postImage from "../images/coding.jpg";
 import { Link } from "react-router-dom";
 
 function Post({ posts }) {
-  const PF = "http://localhost:8000/images/";
+  const PF = "https://mello-yello-blog.herokuapp.com/images/";
 
   // console.log(posts.photo);
   return (
